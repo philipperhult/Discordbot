@@ -1,13 +1,15 @@
 from discord.ext import commands
 import discord
-import os
 import time
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 bot = commands.Bot(command_prefix = '!')
 
 @bot.command(pass_context=True)
 async def check(ctx):
-    await ctx.send("Ja den funke, nå gå ut")
+    await ctx.send("Ja den funke din dog")
 
 @bot.command(pass_context=True)
 async def gåut(ctx, member: discord.Member):
@@ -24,6 +26,11 @@ async def gåut(ctx, member: discord.Member):
         await member.edit(mute=False)
         await member.edit(voice_channel=channel2)
         return False
-     
-bot.run("NzcwMjg1NTU0MTkyNjEzNDE2.X5bWUw.oRXxJus_Q8hMJWeLr_cjfxmkt-k")
+
+@bot.command(pass_context=True)
+async def test(ctx, role: discord.Role):
+    user = ctx.message.author
+    await user.add_roles(role)
+
+bot.run(os.environ.get('RUNTOKEN'))
 
